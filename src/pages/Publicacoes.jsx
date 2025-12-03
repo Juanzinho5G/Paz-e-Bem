@@ -34,7 +34,7 @@ function Publicacoes() {
   
 
   return (
-    <div className="px-3 mt-4 space-y-4">
+    <div className="px-4 mt-4 space-y-4">
       {err && <div className="p-2 rounded-md bg-red-100 text-red-700 text-xs">{err}</div>}
       {loading && (
         <>
