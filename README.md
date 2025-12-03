@@ -1,4 +1,4 @@
-# **Paz e Bem -- Aplicativo da Igreja Matriz de Cerro Corá**
+# **Paz e Bem - Aplicativo da Igreja Matriz de Cerro Corá**
 
 ### Desenvolvido pela comunidade **InovaTech -- Cerro Corá**
 
@@ -76,7 +76,7 @@ comunidade para fortalecer a comunicação da paróquia com seus fiéis.
 ## 📝 **Como Rodar o Projeto Localmente**
 
 ``` bash
-git clone https://github.com/SEU-USUARIO/paz-e-bem.git
+git clone https://github.com/Juanzinho5G/paz-e-bem.git
 cd paz-e-bem
 npm install
 npm run dev
