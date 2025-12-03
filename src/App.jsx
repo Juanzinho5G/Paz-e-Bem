@@ -6,6 +6,12 @@ import Publicacoes from './pages/Publicacoes.jsx'
 import Informativos from './pages/Informativos.jsx'
 import Sobre from './pages/Sobre.jsx'
 import Login from './pages/Login.jsx'
+import AdminPublicacoes from './pages/AdminPublicacoes.jsx'
+import AdminInformativos from './pages/AdminInformativos.jsx'
+import Admin from './pages/Admin.jsx'
+import AdminEditPublicacao from './pages/AdminEditPublicacao.jsx'
+import AdminEditInformativo from './pages/AdminEditInformativo.jsx'
+import PublicacaoDetalhes from './pages/PublicacaoDetalhes.jsx'
 
 function App() {
   return (
@@ -15,9 +21,15 @@ function App() {
         <main className="pb-20">
           <Routes>
             <Route path="/" element={<Publicacoes />} />
+            <Route path="/publicacoes/:id" element={<PublicacaoDetalhes />} />
             <Route path="/informativos" element={<Informativos />} />
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/publicacoes" element={<AdminPublicacoes />} />
+            <Route path="/admin/publicacoes/:id" element={<AdminEditPublicacao />} />
+            <Route path="/admin/informativos" element={<AdminInformativos />} />
+            <Route path="/admin/informativos/:id" element={<AdminEditInformativo />} />
           </Routes>
         </main>
         <nav className="fixed bottom-0 left-0 right-0 h-14 bg-white border-t border-gray-200">
@@ -26,7 +38,7 @@ function App() {
               {({ isActive }) => (
                 <>
                   <NewspaperIcon className={`w-5 h-5 ${isActive ? 'text-[#33C6C5]' : 'text-gray-700'}`} />
-                  <span className={isActive ? 'font-semibold text-[#33C6C5]' : 'text-gray-700'}>Publicações</span>
+                  {/* <span className={isActive ? 'font-semibold text-[#33C6C5]' : 'text-gray-700'}>Publicações</span> */}
                 </>
               )}
             </NavLink>
@@ -34,7 +46,7 @@ function App() {
               {({ isActive }) => (
                 <>
                   <MegaphoneIcon className={`w-5 h-5 ${isActive ? 'text-[#33C6C5]' : 'text-gray-700'}`} />
-                  <span className={isActive ? 'font-semibold text-[#33C6C5]' : 'text-gray-700'}>Informativos</span>
+                  {/* <span className={isActive ? 'font-semibold text-[#33C6C5]' : 'text-gray-700'}>Informativos</span> */}
                 </>
               )}
             </NavLink>
@@ -42,7 +54,7 @@ function App() {
               {({ isActive }) => (
                 <>
                   <InformationCircleIcon className={`w-5 h-5 ${isActive ? 'text-[#33C6C5]' : 'text-gray-700'}`} />
-                  <span className={isActive ? 'font-semibold text-[#33C6C5]' : 'text-gray-700'}>Sobre</span>
+                  {/* <span className={isActive ? 'font-semibold text-[#33C6C5]' : 'text-gray-700'}>Sobre</span> */}
                 </>
               )}
             </NavLink>
@@ -50,7 +62,7 @@ function App() {
               {({ isActive }) => (
                 <>
                   <UserIcon className={`w-5 h-5 ${isActive ? 'text-[#33C6C5]' : 'text-gray-700'}`} />
-                  <span className={isActive ? 'font-semibold text-[#33C6C5]' : 'text-gray-700'}>Login</span>
+                  {/* <span className={isActive ? 'font-semibold text-[#33C6C5]' : 'text-gray-700'}>Login</span> */}
                 </>
               )}
             </NavLink>

@@ -1,4 +1,6 @@
-function EventCard({ title, time, date, image }) {
+import { Link } from 'react-router-dom'
+
+function EventCard({ title, time, date, image, detailsTo }) {
   return (
     <div className="p-4 rounded-xl border border-gray-200 bg-white shadow-sm">
       <div className="flex gap-4">
@@ -19,9 +21,13 @@ function EventCard({ title, time, date, image }) {
             </div>
           </div>
           <div className="mt-2">
-            <button className="bg-[#BFA5FF] text-gray-700 px-4 py-1 text-xs font-semibold rounded-md hover:bg-[#a88ef0]">
-              DETALHES
-            </button>
+            {detailsTo ? (
+              <Link to={detailsTo} className="bg-[#BFA5FF] text-gray-700 px-4 py-1 text-xs font-semibold rounded-md hover:bg-[#a88ef0]">
+                DETALHES
+              </Link>
+            ) : (
+              <button className="bg-[#BFA5FF] text-gray-700 px-4 py-1 text-xs font-semibold rounded-md hover:bg-[#a88ef0]">DETALHES</button>
+            )}
           </div>
         </div>
       </div>
