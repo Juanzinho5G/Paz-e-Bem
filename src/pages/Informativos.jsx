@@ -31,7 +31,7 @@ function Informativos() {
 
   return (
     <div className="px-3 mt-4 space-y-4">
-      <div className="text-sm font-bold text-gray-800">Informativos</div>
+      <div className="text-xl font-bold text-gray-800">Informativos</div>
       {err && <div className="p-2 rounded-md bg-red-100 text-red-700 text-xs">{err}</div>}
       {loading && (
         <>
