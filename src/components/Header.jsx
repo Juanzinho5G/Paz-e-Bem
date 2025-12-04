@@ -12,7 +12,7 @@ function Header() {
   };
 
   return (
-    <header className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-5 py-6 rounded-b-3xl shadow-md -mb-3 relative z-10">
+    <header className="bg-[#33C6C5] from-teal-500 to-teal-600 text-white px-5 py-6 rounded-b-3xl shadow-md -mb-3 relative z-10">
       <div className="relative">
         <div className="absolute right-4 top-4">
           <button
