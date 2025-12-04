@@ -1,24 +1,28 @@
-
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom'
-import { NewspaperIcon, MegaphoneIcon, InformationCircleIcon, UserIcon } from '@heroicons/react/24/outline'
-import Header from './components/Header.jsx'
-import Publicacoes from './pages/Publicacoes.jsx'
-import Informativos from './pages/Informativos.jsx'
-import Sobre from './pages/Sobre.jsx'
-import Login from './pages/Login.jsx'
-import AdminPublicacoes from './pages/AdminPublicacoes.jsx'
-import AdminInformativos from './pages/AdminInformativos.jsx'
-import Admin from './pages/Admin.jsx'
-import AdminEditPublicacao from './pages/AdminEditPublicacao.jsx'
-import AdminEditInformativo from './pages/AdminEditInformativo.jsx'
-import PublicacaoDetalhes from './pages/PublicacaoDetalhes.jsx'
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import {
+  NewspaperIcon,
+  MegaphoneIcon,
+  InformationCircleIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
+import Header from "./components/Header.jsx";
+import Publicacoes from "./pages/Publicacoes.jsx";
+import Informativos from "./pages/Informativos.jsx";
+import Sobre from "./pages/Sobre.jsx";
+import Login from "./pages/Login.jsx";
+import AdminPublicacoes from "./pages/AdminPublicacoes.jsx";
+import AdminInformativos from "./pages/AdminInformativos.jsx";
+import Admin from "./pages/Admin.jsx";
+import AdminEditPublicacao from "./pages/AdminEditPublicacao.jsx";
+import AdminEditInformativo from "./pages/AdminEditInformativo.jsx";
+import PublicacaoDetalhes from "./pages/PublicacaoDetalhes.jsx";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[#F5F7FA] text-gray-900 font-sans">
+      <div className="min-h-screen bg-slate-100 text-slate-800 font-sans max-w-md mx-auto relative">
         <Header />
-        <main className="pb-20">
+        <main className="pb-24">
           <Routes>
             <Route path="/" element={<Publicacoes />} />
             <Route path="/publicacoes/:id" element={<PublicacaoDetalhes />} />
@@ -27,50 +31,83 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/publicacoes" element={<AdminPublicacoes />} />
-            <Route path="/admin/publicacoes/:id" element={<AdminEditPublicacao />} />
+            <Route
+              path="/admin/publicacoes/:id"
+              element={<AdminEditPublicacao />}
+            />
             <Route path="/admin/informativos" element={<AdminInformativos />} />
-            <Route path="/admin/informativos/:id" element={<AdminEditInformativo />} />
+            <Route
+              path="/admin/informativos/:id"
+              element={<AdminEditInformativo />}
+            />
           </Routes>
         </main>
-        <nav className="fixed bottom-0 left-0 right-0 h-14 bg-white border-t border-gray-200">
-          <div className="max-w-md mx-auto h-full flex">
-            <NavLink to="/" end className="flex-1 flex flex-col items-center justify-center text-xs gap-1">
-              {({ isActive }) => (
-                <>
-                  <NewspaperIcon className={`w-5 h-5 ${isActive ? 'text-[#33C6C5]' : 'text-gray-700'}`} />
-                  {/* <span className={isActive ? 'font-semibold text-[#33C6C5]' : 'text-gray-700'}>Publicações</span> */}
-                </>
-              )}
-            </NavLink>
-            <NavLink to="/informativos" className="flex-1 flex flex-col items-center justify-center text-xs gap-1">
-              {({ isActive }) => (
-                <>
-                  <MegaphoneIcon className={`w-5 h-5 ${isActive ? 'text-[#33C6C5]' : 'text-gray-700'}`} />
-                  {/* <span className={isActive ? 'font-semibold text-[#33C6C5]' : 'text-gray-700'}>Informativos</span> */}
-                </>
-              )}
-            </NavLink>
-            <NavLink to="/sobre" className="flex-1 flex flex-col items-center justify-center text-xs gap-1">
-              {({ isActive }) => (
-                <>
-                  <InformationCircleIcon className={`w-5 h-5 ${isActive ? 'text-[#33C6C5]' : 'text-gray-700'}`} />
-                  {/* <span className={isActive ? 'font-semibold text-[#33C6C5]' : 'text-gray-700'}>Sobre</span> */}
-                </>
-              )}
-            </NavLink>
-            <NavLink to="/login" className="flex-1 flex flex-col items-center justify-center text-xs gap-1">
-              {({ isActive }) => (
-                <>
-                  <UserIcon className={`w-5 h-5 ${isActive ? 'text-[#33C6C5]' : 'text-gray-700'}`} />
-                  {/* <span className={isActive ? 'font-semibold text-[#33C6C5]' : 'text-gray-700'}>Login</span> */}
-                </>
-              )}
-            </NavLink>
-          </div>
+        <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md h-20 bg-white border-t border-gray-200 rounded-t-3xl shadow-lg z-50 flex justify-around items-center">
+          <NavLink
+            to="/"
+            end
+            className="flex flex-col items-center justify-center text-xs gap-1 w-1/4 relative"
+          >
+            {({ isActive }) => (
+              <>
+                <NewspaperIcon
+                  className={`w-6 h-6 transition-colors ${
+                    isActive ? "text-purple-600" : "text-slate-400"
+                  }`}
+                />
+                {/* indicator removed */}
+              </>
+            )}
+          </NavLink>
+          <NavLink
+            to="/informativos"
+            className="flex flex-col items-center justify-center text-xs gap-1 w-1/4 relative"
+          >
+            {({ isActive }) => (
+              <>
+                <MegaphoneIcon
+                  className={`w-6 h-6 transition-colors ${
+                    isActive ? "text-purple-600" : "text-slate-400"
+                  }`}
+                />
+                {/* indicator removed */}
+              </>
+            )}
+          </NavLink>
+          <NavLink
+            to="/sobre"
+            className="flex flex-col items-center justify-center text-xs gap-1 w-1/4 relative"
+          >
+            {({ isActive }) => (
+              <>
+                <InformationCircleIcon
+                  className={`w-6 h-6 transition-colors ${
+                    isActive ? "text-purple-600" : "text-slate-400"
+                  }`}
+                />
+                {/* indicator removed */}
+              </>
+            )}
+          </NavLink>
+          <NavLink
+            to="/login"
+            className="flex flex-col items-center justify-center text-xs gap-1 w-1/4 relative"
+          >
+            {({ isActive }) => (
+              <>
+                <UserIcon
+                  className={`w-6 h-6 transition-colors ${
+                    isActive ? "text-purple-600" : "text-slate-400"
+                  }`}
+                />
+                {/* indicator removed */}
+              </>
+            )}
+          </NavLink>
         </nav>
       </div>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
