@@ -1,6 +1,6 @@
 function InformativoInovaTec() {
   return (
-    <div className="px-5 py-6">
+    <div>
       <div className="bg-white rounded-2xl shadow-md overflow-hidden">
         <div className="p-5">
           <div className="flex items-start">

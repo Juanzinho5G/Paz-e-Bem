@@ -61,7 +61,7 @@ function PublicacaoDetalhes() {
       {item && (
         <div className="space-y-3">
           <img src={item.image_url || '/logo.png'} alt={item.title} className="w-full h-48 rounded-xl object-cover border border-gray-200" />
-          <div className="text-lg font-bold text-gray-800">{item.title}</div>
+          <div className="text-lg font-bold text-gray-800 wrap-break-word">{item.title}</div>
           <div className="text-xs text-gray-700">{fmtDate(item.scheduled_at)} • {fmtTime(item.scheduled_at)}</div>
           <div className="p-4 rounded-xl border border-gray-200 bg-white shadow-sm text-xs text-gray-700 whitespace-pre-line">{item.description}</div>
           
