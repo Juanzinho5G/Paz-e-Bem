@@ -1,13 +1,18 @@
 import { useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { NewspaperIcon, MegaphoneIcon } from '@heroicons/react/24/outline'
+import { supabase } from '../lib/supabaseClient'
 
 function Admin() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const ok = localStorage.getItem('adminLoggedIn') === 'true'
-    if (!ok) navigate('/login')
+    const check = async () => {
+      const { data } = await supabase.auth.getSession()
+      const ok = !!data.session || localStorage.getItem('adminLoggedIn') === 'true'
+      if (!ok) navigate('/login')
+    }
+    check()
   }, [navigate])
 
   return (

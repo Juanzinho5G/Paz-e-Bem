@@ -14,8 +14,8 @@ function Publicacoes() {
       setLoading(true);
       const { data, error } = await supabase
         .from("publicacoes")
-        .select("id,title,scheduled_at,image_url,description,created_at")
-        .order("created_at", { ascending: false });
+        .select("id,title,scheduled_at,scheduled_end_at,image_url,description,created_at")
+        .order("scheduled_at", { ascending: true });
       if (!mounted) return;
       if (error) {
         setErr(error.message);
@@ -50,7 +50,7 @@ function Publicacoes() {
               key={i}
               className="bg-white rounded-2xl shadow-sm overflow-hidden flex animate-pulse"
             >
-              <div className="shimmer w-24 h-24 flex-shrink-0" />
+              <div className="shimmer w-24 h-24" />
               <div className="flex-1 p-4 space-y-3">
                 <div className="shimmer h-3 w-32 rounded" />
                 <div className="shimmer h-3 w-24 rounded" />
@@ -65,7 +65,11 @@ function Publicacoes() {
             <EventCard
               key={i.id}
               title={i.title}
-              time={fmtTime(i.scheduled_at)}
+              time={
+                i.scheduled_end_at
+                  ? `${fmtTime(i.scheduled_at)} – ${fmtTime(i.scheduled_end_at)}`
+                  : fmtTime(i.scheduled_at)
+              }
               date={fmtDate(i.scheduled_at)}
               image={i.image_url || "/logo.png"}
               detailsTo={`/publicacoes/${i.id}`}

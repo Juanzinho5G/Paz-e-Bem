@@ -21,8 +21,12 @@ function AdminInformativos() {
   }
 
   useEffect(() => {
-    const ok = localStorage.getItem('adminLoggedIn') === 'true'
-    if (!ok) { navigate('/login'); return }
+    const check = async () => {
+      const { data } = await supabase.auth.getSession()
+      const ok = !!data.session || localStorage.getItem('adminLoggedIn') === 'true'
+      if (!ok) { navigate('/login'); return }
+    }
+    check()
     let active = true
     supabase
       .from('informativos')
@@ -45,6 +49,18 @@ function AdminInformativos() {
     }
     const { error } = await supabase.from('informativos').insert(payload)
     if (error) { setErr(error.message); return }
+    try {
+      const link = `${window.location.origin}/informativos`
+      await supabase.functions.invoke('notify', {
+        body: {
+          type: 'informativo',
+          title,
+          url: link,
+        },
+      })
+    } catch (e) {
+      console.error(e)
+    }
     setTitle('')
     setContent('')
     setPublishedAt('')
@@ -67,9 +83,18 @@ function AdminInformativos() {
       </div>
       {err && <div className="p-2 rounded-md bg-red-100 text-red-700 text-xs">{err}</div>}
       <div className="p-4 rounded-xl border border-gray-200 bg-white shadow-sm space-y-2">
-        <input className="w-full p-2 text-xs rounded-md border border-gray-300" placeholder="Título" value={title} onChange={e => setTitle(e.target.value)} />
-        <textarea className="w-full p-2 text-xs rounded-md border border-gray-300" placeholder="Conteúdo" value={content} onChange={e => setContent(e.target.value)} />
-        <input className="w-full p-2 text-xs rounded-md border border-gray-300" type="datetime-local" value={publishedAt} onChange={e => setPublishedAt(e.target.value)} />
+        <div className="space-y-1">
+          <div className="text-xs font-semibold text-gray-700">Título</div>
+          <input className="w-full p-2 text-xs rounded-md border border-gray-300 text-gray-800 placeholder-gray-400" placeholder="Título do informativo" value={title} onChange={e => setTitle(e.target.value)} />
+        </div>
+        <div className="space-y-1">
+          <div className="text-xs font-semibold text-gray-700">Conteúdo</div>
+          <textarea className="w-full p-2 text-xs rounded-md border border-gray-300 text-gray-800 placeholder-gray-400 min-h-40 resize-y" placeholder="Texto do informativo (links são clicáveis)" value={content} onChange={e => setContent(e.target.value)} />
+        </div>
+        <div className="space-y-1">
+          <div className="text-xs font-semibold text-gray-700">Data de publicação</div>
+          <input className="w-full p-2 text-xs rounded-md border border-gray-300 text-gray-800 placeholder-gray-400" type="datetime-local" value={publishedAt} onChange={e => setPublishedAt(e.target.value)} />
+        </div>
         <button className="bg-[#33C6C5] text-white text-xs font-semibold px-4 py-2 rounded-md" onClick={createItem}>Criar</button>
       </div>
       <div className="space-y-3">

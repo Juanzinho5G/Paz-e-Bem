@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-// Login local fixo, sem Supabase Auth
+import { supabase } from '../lib/supabaseClient'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -17,12 +17,29 @@ function Login() {
     setErr('')
     const input = email.trim()
     const pass = password.trim()
-    if (!((input === FIXED_USER || input === FIXED_EMAIL) && pass === FIXED_PASS)) {
-      setErr('Credenciais inválidas')
-      return
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: input,
+        password: pass,
+      })
+      if (error) {
+        // fallback para login local fixo
+        if (!((input === FIXED_USER || input === FIXED_EMAIL) && pass === FIXED_PASS)) {
+          setErr('Credenciais inválidas')
+          return
+        }
+        localStorage.setItem('adminLoggedIn', 'true')
+        navigate('/admin')
+        return
+      }
+      if (data?.session) {
+        navigate('/admin')
+        return
+      }
+      setErr('Não foi possível autenticar')
+    } catch {
+      setErr('Falha ao autenticar')
     }
-    localStorage.setItem('adminLoggedIn', 'true')
-    navigate('/admin')
   }
 
   return (
