@@ -3,15 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 
 function AdminPublicacoes() {
-  const navigate = useNavigate();
-  const [items, setItems] = useState([]);
-  const [title, setTitle] = useState("");
-  const [scheduledAt, setScheduledAt] = useState("");
-  const [description, setDescription] = useState("");
-  const [file, setFile] = useState(null);
-  const fileInputRef = useRef(null);
-  const [err, setErr] = useState("");
-  const [confirm, setConfirm] = useState(null);
+  const navigate = useNavigate()
+  const [items, setItems] = useState([])
+  const [title, setTitle] = useState('')
+  const [scheduledAt, setScheduledAt] = useState('')
+  const [description, setDescription] = useState('')
+  const [file, setFile] = useState(null)
+  const [err, setErr] = useState('')
+  const [confirm, setConfirm] = useState(null)
 
   const load = async () => {
     const { data, error } = await supabase
@@ -23,12 +22,9 @@ function AdminPublicacoes() {
   };
 
   useEffect(() => {
-    const ok = localStorage.getItem("adminLoggedIn") === "true";
-    if (!ok) {
-      navigate("/login");
-      return;
-    }
-    let active = true;
+    const ok = localStorage.getItem('adminLoggedIn') === 'true'
+    if (!ok) { navigate('/login'); return }
+    let active = true
     supabase
       .from("publicacoes")
       .select("id,title,scheduled_at,image_url,description")
@@ -58,23 +54,19 @@ function AdminPublicacoes() {
     }
     const payload = {
       title,
-      scheduled_at: scheduledAt
-        ? new Date(scheduledAt).toISOString()
-        : new Date().toISOString(),
+      scheduled_at: scheduledAt ? new Date(scheduledAt).toISOString() : new Date().toISOString(),
       image_url: imageUrl,
       description,
-    };
-    const { error } = await supabase.from("publicacoes").insert(payload);
-    if (error) {
-      setErr(error.message);
-      return;
     }
-    setTitle("");
-    setScheduledAt("");
-    setDescription("");
-    setFile(null);
-    await load();
-  };
+    const { error } = await supabase.from('publicacoes').insert(payload)
+    if (error) { setErr(error.message); return }
+    setTitle('')
+    setScheduledAt('')
+    setDescription('')
+    setFile(null)
+    await load()
+  }
+
 
   const deleteItem = async (item) => {
     setErr("");
@@ -113,49 +105,11 @@ function AdminPublicacoes() {
         </div>
       )}
       <div className="p-4 rounded-xl border border-gray-200 bg-white shadow-sm space-y-2">
-        <input
-          className="w-full p-2 text-xs rounded-md border border-gray-300"
-          placeholder="Título"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <input
-          className="w-full p-2 text-xs rounded-md border border-gray-300"
-          type="datetime-local"
-          value={scheduledAt}
-          onChange={(e) => setScheduledAt(e.target.value)}
-        />
-        <textarea
-          className="w-full p-2 text-xs rounded-md border border-gray-300"
-          placeholder="Descrição"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <div className="flex items-center gap-2">
-          <input
-            ref={fileInputRef}
-            className="hidden"
-            type="file"
-            accept="image/*"
-            onChange={(e) => setFile(e.target.files?.[0] || null)}
-          />
-          <button
-            type="button"
-            className="bg-gray-200 text-gray-800 text-xs font-semibold px-3 py-1 rounded-md"
-            onClick={() => fileInputRef.current && fileInputRef.current.click()}
-          >
-            Arquivo
-          </button>
-          {file && (
-            <div className="text-xs text-gray-600 truncate">{file.name}</div>
-          )}
-        </div>
-        <button
-          className="bg-[#33C6C5] text-white text-xs font-semibold px-4 py-2 rounded-md"
-          onClick={createItem}
-        >
-          Criar
-        </button>
+        <input className="w-full p-2 text-xs rounded-md border border-gray-300" placeholder="Título" value={title} onChange={e => setTitle(e.target.value)} />
+        <input className="w-full p-2 text-xs rounded-md border border-gray-300" type="datetime-local" value={scheduledAt} onChange={e => setScheduledAt(e.target.value)} />
+        <textarea className="w-full p-2 text-xs rounded-md border border-gray-300" placeholder="Descrição" value={description} onChange={e => setDescription(e.target.value)} />
+        <input className="w-full text-xs" type="file" accept="image/*" onChange={e => setFile(e.target.files?.[0] || null)} />
+        <button className="bg-[#33C6C5] text-white text-xs font-semibold px-4 py-2 rounded-md" onClick={createItem}>Criar</button>
       </div>
       <div className="space-y-3">
         {items.map((i) => (

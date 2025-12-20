@@ -6,6 +6,13 @@ function Informativos() {
   const [err, setErr] = useState('')
   const [loading, setLoading] = useState(true)
 
+  const escapeHtml = (s) =>
+    String(s || '').replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]))
+  const linkify = (text) => {
+    const escaped = escapeHtml(text)
+    return escaped.replace(/(https?:\/\/[^\s]+)/g, (url) => `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-[#33C6C5] underline">${url}</a>`)
+  }
+
   useEffect(() => {
     let mounted = true
     ;(async () => {
@@ -47,7 +54,7 @@ function Informativos() {
       {items.map(i => (
         <div key={i.id} className="p-4 rounded-xl border border-gray-200 bg-white shadow-sm text-xs text-gray-700 space-y-1">
           <div className="text-gray-800 font-semibold">{i.title}</div>
-          <div>{i.content}</div>
+          <div className="whitespace-pre-line" dangerouslySetInnerHTML={{ __html: linkify(i.content) }} />
           <div className="text-gray-500">{fmtDate(i.created_at)}</div>
         </div>
       ))}
