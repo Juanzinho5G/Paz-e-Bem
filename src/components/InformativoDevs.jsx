@@ -13,11 +13,12 @@ function InformativoDevs() {
           </div>
 
           <ul className="mt-4 space-y-2 text-slate-600 text-sm leading-relaxed">
-            <li>Anderson Sidcley</li>
-            <li>Eduardo Bezerra</li>
-            <li>João Felipe</li>
-            <li>Lucas</li>
-            <li>Ruan</li>
+            <li><a href="https://github.com/Sid-si" target="_blank" rel="noopener noreferrer">Anderson Sidcley</a></li>
+            <li><a href="https://github.com/edubzs" target="_blank" rel="noopener noreferrer">Eduardo Bezerra</a></li>           
+            <li><a href="https://github.com/Juanzinho5G" target="_blank" rel="noopener noreferrer">Juan Medeiros</a></li>           
+            <li><a href="https://github.com/joaofelipehub3" target="_blank" rel="noopener noreferrer">João Felipe</a></li>           
+            <li><a href="https://github.com/joselucas13209-svg" target="_blank" rel="noopener noreferrer">José Lucas</a></li>
+            
           </ul>
         </div>
       </div>

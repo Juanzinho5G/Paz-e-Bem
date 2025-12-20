@@ -1,4 +1,5 @@
 import InformativoDevs from "../components/InformativoDevs"
+import InformativoIdealizador from "../components/informativoIdealizador"
 import InformativoIgreja from "../components/InformativoIgreja"
 import InformativoInovaTec from "../components/InformativoInovaTec"
 
@@ -10,6 +11,7 @@ function Sobre() {
       <InformativoIgreja/>
       <InformativoInovaTec/>
       <InformativoDevs/>
+      <InformativoIdealizador/>
     </div>
   )
 }

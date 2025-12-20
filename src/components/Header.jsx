@@ -14,10 +14,11 @@ function Header() {
   return (
     <header className="bg-[#33C6C5] text-white h-16 px-4 shadow-md relative z-10 flex items-center justify-between mb-1">
       <div className="flex flex-col items-start gap-0.5">
-        <div className="text-base font-semibold">Paz e Bem</div>
-        <div className="text-xs opacity-90 flex items-center gap-2">
-          <span>📍 Matriz de Cerro Corá</span>
-        </div>
+        <img
+          src="/logo-header.png"
+          alt="imagem logo"
+          className="h-10 w-auto object-contain"
+        />
       </div>
       <button
         onClick={handleShare}
