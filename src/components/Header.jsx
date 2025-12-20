@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 
 function Header() {
   const handleShare = () => {
@@ -16,6 +17,8 @@ function Header() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [showInstall, setShowInstall] = useState(false);
   const [showNotify, setShowNotify] = useState(false);
+  const [actionsOpen, setActionsOpen] = useState(false);
+  const actionsRef = useRef(null);
 
   useEffect(() => {
     const onBIP = (e) => {
@@ -49,6 +52,26 @@ function Header() {
       document.removeEventListener('visibilitychange', onVis);
     };
   }, []);
+
+  useEffect(() => {
+    if (!actionsOpen) return;
+    const onDown = (e) => {
+      const root = actionsRef.current;
+      if (!root) return;
+      if (root.contains(e.target)) return;
+      setActionsOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("touchstart", onDown);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("touchstart", onDown);
+    };
+  }, [actionsOpen]);
+
+  useEffect(() => {
+    if (!showInstall && !showNotify) setActionsOpen(false);
+  }, [showInstall, showNotify]);
 
   const handleInstall = async () => {
     try {
@@ -85,21 +108,46 @@ function Header() {
         </div>
       </div>
       <div className="flex items-center gap-2">
-        {showNotify && (
-          <button
-            onClick={handleNotify}
-            className="bg-white text-[#33C6C5] hover:bg-white/90 rounded-md px-3 py-2 text-xs font-semibold"
-          >
-            Ativar Notificações
-          </button>
-        )}
-        {showInstall && (
-          <button
-            onClick={handleInstall}
-            className="bg-white text-[#33C6C5] hover:bg-white/90 rounded-md px-3 py-2 text-xs font-semibold"
-          >
-            Instalar App
-          </button>
+        {(showNotify || showInstall) && (
+          <div className="relative" ref={actionsRef}>
+            <button
+              type="button"
+              onClick={() => setActionsOpen((v) => !v)}
+              aria-label="Ações"
+              aria-expanded={actionsOpen}
+              className="bg-white/20 hover:bg-white/30 text-white rounded-full w-10 h-10 flex items-center justify-center"
+            >
+              <EllipsisVerticalIcon className="w-5 h-5 text-white" />
+            </button>
+            {actionsOpen && (
+              <div className="absolute right-0 top-12 w-52 rounded-xl border border-white/30 bg-white shadow-lg overflow-hidden z-50">
+                {showNotify && (
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      await handleNotify();
+                      setActionsOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-3 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  >
+                    Ativar Notificações
+                  </button>
+                )}
+                {showInstall && (
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      await handleInstall();
+                      setActionsOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-3 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  >
+                    Instalar App
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         )}
         <button
           onClick={handleShare}
