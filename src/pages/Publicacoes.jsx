@@ -271,7 +271,7 @@ function Publicacoes() {
               })}
             </div>
             <div className="text-[11px] text-slate-500">
-              Toque em um dia para ver as publicações
+              selecione um dia para ver as publicações
             </div>
           </div>
 
